@@ -42,6 +42,9 @@ Flags
 -r: recursive: Searches through all files in the current directory and subdirectory
 
 Sed
+Used to basuc text transformations and manipulations on an input stream. Unlike nano or vim, operates automatically without requiring user intervention
+e.g.
+sed 's/test/test1/' file.txt: replaces the fiest test on each line
 Awk
 Cut
 Sort
