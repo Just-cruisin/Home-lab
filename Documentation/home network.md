@@ -9,6 +9,7 @@ The network is designed to be simple but segmented with IoT devices isolated fro
 
 The network consists of the following core devices:
 | Device | Purpose |
+| --- | --- |
 | Unifi Dream Router | Router, Firewall and network controller |
 | Unifi 16 port switch | Core Switching for  wired devices |
 | Unifi 4 prot switch | Provides additional switching for wired devices + one of the AP's |
