@@ -5,7 +5,7 @@ The network is designed to be simple but segmented with IoT devices isolated fro
 
 ---
 
-#Hardware
+# Hardware
 
 The network consists of the following core devices:
 | Device | Purpose |
@@ -19,10 +19,51 @@ The network consists of the following core devices:
 
 ---
 
-#Network segmentation
+# Network segmentation
 
 The network uses VLANs to isolate less trusted devices as well as seperate out cameras
 | Network | Purpose | Subnet
 | Main LAN | Primary home network | 192.168.1.0/24 |
 | NVR/ Cameras | Security Cameras and NVR | 192.168.2.0/24 |
 | IoT | IoT and smart home devices | 192.168.1.0/24 |
+
+---
+
+# Wireless Networks
+
+Access points broadcast two main SSIDs:
+
+| SSID | Network |
+| Korn | Main LAN |
+| Korn smarthome | IoT VLAN |
+
+Devices connect to the appropriate network based on trust level. Korn smarthome also only broadcasts on 2.4GHz to maintain availability for some IoT devices.
+
+# Core infrastructure 
+
+The proxmox cluster provides the main computer resources in the network
+
+Nodes: 
+
+- PVE1
+- PVE2
+- PVE3
+
+---
+
+# Design goals:
+
+- simplicity
+- security through segmentation
+- easy expansion for homelab infrastructure
+- reliable wireless coverage
+
+---
+
+# Future improvement
+
+Potential future improvements include:
+
+- Additional VLANs for lab expermiments
+- Dedicated monitoring network
+- Improved network documentation and automation
