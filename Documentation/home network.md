@@ -23,7 +23,8 @@ The network consists of the following core devices:
 # Network segmentation
 
 The network uses VLANs to isolate less trusted devices as well as seperate out cameras
-| Network | Purpose | Subnet
+| Network | Purpose | Subnet |
+| --- | --- | --- |
 | Main LAN | Primary home network | 192.168.1.0/24 |
 | NVR/ Cameras | Security Cameras and NVR | 192.168.2.0/24 |
 | IoT | IoT and smart home devices | 192.168.1.0/24 |
@@ -35,6 +36,7 @@ The network uses VLANs to isolate less trusted devices as well as seperate out c
 Access points broadcast two main SSIDs:
 
 | SSID | Network |
+| --- | --- |
 | Korn | Main LAN |
 | Korn smarthome | IoT VLAN |
 
