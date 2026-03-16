@@ -45,7 +45,14 @@ Sed
 Used to basuc text transformations and manipulations on an input stream. Unlike nano or vim, operates automatically without requiring user intervention
 e.g.
 sed 's/test/test1/' file.txt: replaces the fiest test on each line
-Awk
+
+# Awk
+Used to extract info from an input.
+e.g. awk 'NR==2 {print $5}'
+Outputs the value in the second row, 5th column
+Flags
+NR = New row
+
 Cut
 Sort
 Uniq
