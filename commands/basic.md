@@ -1,10 +1,10 @@
-LS
+# LS
 Lists current files and folders in the current directory
 Flags
 -a: show hidden files
 -l: display details
 
-Find
+# Find
 Used to search for files
 E.g. find /home “Tom.txt”
 Flags
@@ -18,7 +18,7 @@ Flags
 -empty: find only empty files
 -perm 664: find field with specific permissions
 
-Tree
+# Tree
 Displays the directory structure in a tree like format
 Stat
 Used to display metadata about files and file systems
@@ -29,7 +29,7 @@ Permissions and links
 Owner UID/ Gid
 Timestamps
 
-Grep
+# Grep
 Used to find lines in plane text data
 Grep [OPTIONS] PATTERN [FILE…]
 Grep “error” log.txt
@@ -41,8 +41,8 @@ Flags
 -c: counts the number of matches
 -r: recursive: Searches through all files in the current directory and subdirectory
 
-Sed
-Used to basuc text transformations and manipulations on an input stream. Unlike nano or vim, operates automatically without requiring user intervention
+# Sed
+Used to basic text transformations and manipulations on an input stream. Unlike nano or vim, operates automatically without requiring user intervention
 e.g.
 sed 's/test/test1/' file.txt: replaces the fiest test on each line
 
@@ -52,6 +52,11 @@ e.g. awk 'NR==2 {print $5}'
 Outputs the value in the second row, 5th column
 Flags
 NR = New row
+
+# tr
+Translate values. 
+e.g. tr -d '%': Deletes % from the provided value
+echo "hello" | tr 'a-z' 'A-Z', gives HELLO
 
 Cut
 Sort
