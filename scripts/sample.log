@@ -1,0 +1,4 @@
+Mar 16 10:00:00 debian sshd[1234]: Failed password for invalid user admin from 192.168.1.10 port 50000 ssh2
+Mar 16 10:00:05 debian sshd[1235]: Failed password for root from 192.168.1.10 port 50001 ssh2
+Mar 16 10:00:10 debian sshd[1236]: Accepted password for tom from 192.168.1.20 port 50002 ssh2
+Mar 16 10:00:15 debian sshd[1237]: Failed password for invalid user test from 203.0.113.5 port 50003 ssh2
