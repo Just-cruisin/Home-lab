@@ -28,4 +28,4 @@
 * Install dnsmasq on router vm
 * Set up config file
 * Removed static IP's from clients
- * test
+  * test
