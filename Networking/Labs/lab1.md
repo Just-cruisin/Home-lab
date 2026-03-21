@@ -23,3 +23,8 @@
 
 ### Problems
 * Router VM kept losing IP address after reboot, assigned it static via /etc/network/interfaces
+
+## Task 3 - Set up DHCP per VLAN
+* Install dnsmasq on router vm
+* Set up config file
+* Removed static IP's from clients
