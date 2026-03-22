@@ -12,11 +12,14 @@ disk_usage=$(df -h / | awk 'NR==2 {print $5}' | tr -d '%')
 if [ "$disk_usage" -gt "$THRESHOLD_CRIT" ]
 then
 	status="CRITICAL"
+	exit_code=1
 elif [ "$disk_usage" -gt "$THRESHOLD_WARN" ]
 then
 	status="WARNING"
+	exit_code=1
 else
 	status="OK"
+	exit_code=0
 fi
 
 # --- Log ---
@@ -34,5 +37,5 @@ echo "-----------------"
 echo "File system is at $disk_usage% usage"
 echo "Threshold: 80%"
 echo "Status: $status"
-
+exit $exit_code
 
