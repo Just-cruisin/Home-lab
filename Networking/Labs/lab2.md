@@ -86,3 +86,46 @@ $TTL 86400
 router  IN  A       192.168.10.1
 client1 IN  A       192.168.10.1
 client2 IN  A       192.168.20.1
+```
+
+## Task 3 - HAProxy load balancing
+* Cloned client2, changed hostname to client3 and added the static reservation for it in dnsmasq (...10.51, VLAN 10)
+* Gave client 3 a different webpage
+* Install haproxy on the router
+Config:
+global
+    log /dev/log local0
+    maxconn 2000
+    daemon
+
+defaults
+    log     global
+    mode    http
+    option  httplog
+    option  dontlognull
+    timeout connect 5s
+    timeout client  30s
+    timeout server  30s
+
+// Frontend - what HAProxy listens on
+frontend web_frontend
+    bind *:8080
+    default_backend web_backends
+
+// Backend - the pool of servers to balance across
+backend web_backends
+    balance roundrobin
+    option httpchk GET /
+    server client1 192.168.10.50:80 check
+    server client3 192.168.10.51:80 check
+
+// Stats page - very useful for seeing what's happening
+listen stats
+    bind *:9000
+    stats enable
+    stats uri /stats
+    stats refresh 5s
+* Put HAProxy on port 8080 to avoid conflict with nginx
+* Tested by using url on a client to the router, go responses from client 1 and 3
+* Checked out the stats page on port 9000 of the router
+* Stopped nginx on client 1 and used curl again from client 2 to see traffic route to client 3
