@@ -1,0 +1,2 @@
+/var/log/disk_usage.log
+/var/log/network_monitor.log
