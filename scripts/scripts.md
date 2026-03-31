@@ -152,3 +152,104 @@ google.com
 ```
 */5 * * * * /path/to/network_monitor.sh
 ```
+## Python Scripts
+ 
+### Requirements
+ 
+Install required packages:
+```bash
+pip3 install flask psutil --break-system-packages
+```
+ 
+Built-in modules used (no install needed): `subprocess`, `socket`, `datetime`, `os`
+ 
+---
+ 
+### disk_usage.py
+ 
+Checks disk usage on `/` and returns status. Can be run standalone or imported by the dashboard.
+ 
+**Standalone usage:**
+```bash
+python3 disk_usage.py
+```
+ 
+**Config** (edit variables at top of file):
+| Variable | Description | Default |
+|---|---|---|
+| `ALERT_EMAIL` | Email address for alerts | - |
+| `LOGFILE` | Path to log file | `/var/log/disk_usage.log` |
+| `THRESHOLD_WARN` | Warning threshold (%) | `80` |
+| `THRESHOLD_CRIT` | Critical threshold (%) | `90` |
+ 
+**Returns** (when imported):
+```python
+from disk_usage import get_disk_usage
+disk_percentage, status = get_disk_usage()
+```
+ 
+---
+ 
+### service_status.py
+ 
+Checks whether a list of systemd services are active or inactive. Can be run standalone or imported by the dashboard.
+ 
+**Standalone usage:**
+```bash
+python3 service_status.py
+```
+ 
+**Usage (when imported):**
+```python
+from service_status import get_service_status
+statuses = get_service_status(["ssh", "cron", "tailscaled"])
+```
+ 
+To check different services, update the `services_to_check` list at the bottom of the file.
+ 
+**Returns:** Dictionary of `{service_name: status}` where status is `active` or `inactive`.
+ 
+---
+ 
+### network_monitor.py
+ 
+Pings a list of hosts from `hosts.txt` and returns their status. Can be run standalone or imported by the dashboard.
+ 
+**Standalone usage:**
+```bash
+python3 network_monitor.py
+```
+ 
+Hosts are read from `hosts.txt` in the same directory — one host per line:
+```
+192.168.1.1
+8.8.8.8
+google.com
+```
+ 
+**Usage (when imported):**
+```python
+from network_monitor import get_network_status
+statuses = get_network_status()
+```
+ 
+**Returns:** Dictionary of `{host: status}` where status is `UP` or `DOWN`.
+ 
+---
+ 
+### dashboard.py
+ 
+Flask web dashboard that displays disk usage, service status, and network monitor data in a browser. Imports from `disk_usage.py`, `service_status.py`, and `network_monitor.py`.
+ 
+**Usage:**
+```bash
+python3 dashboard.py
+```
+ 
+Access the dashboard at `http://<your-tailscale-ip>:5000`
+ 
+**Requirements:**
+- `flask_templates/index.html` must exist at the repo root level
+- `hosts.txt` must exist in the scripts directory
+- `~/.msmtprc` must be configured for email alerts
+- All three Python monitoring scripts must be in the same directory

@@ -1,13 +1,25 @@
 import platform
 import subprocess
 
-# Read the file into a list
-file_path = 'hosts.txt'
-with open(file_path, 'r') as file:
-	hosts = file.readlines()
+def get_network_status():
+    results = {}
+    file_path = 'hosts.txt'
+    with open(file_path, 'r') as file:
+        hosts = file.readlines()
+    for host in hosts:
+        host = host.strip()
+        result = subprocess.run(
+            ["ping", "-c", "1", host],
+            capture_output=True,
+            text=True)
+        if result.returncode == 0:
+            status = "UP"
+        else:
+            status = "DOWN"
+        results[host] = status
+    return results
 
-for host.strip() in hosts:
-	result=subprocess.run(
-		["ping",host, "c -1"],
-		capture_output=True,
-		text=True)
+if __name__ == '__main__':
+    statuses = get_network_status()
+    for host, status in statuses.items():
+        print(f"{host}: {status}")
