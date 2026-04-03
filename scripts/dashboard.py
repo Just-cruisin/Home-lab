@@ -9,7 +9,7 @@ base_dir = os.path.dirname(os.path.abspath(__file__))
 print(os.path.join(base_dir, '..', 'flask_templates'))
 app = Flask(__name__,template_folder=os.path.join(base_dir, '..', 'flask_templates'))
 
-@app.route('/')http://testing.lan:909/
+@app.route('/')
 def index():
     service_statuses = get_service_status(["ssh","cron","tailscaled"])
     disk_percentage,status = get_disk_usage()
