@@ -11,14 +11,42 @@
 			<div class="card-header">Disk Usage</div>
 			<div class="card-body">
 				<p>{{disk_percentage }}%</p>
-				<p>{{status }}</p>
+				
 				<p class="
-					{% if satus == 'CRITICAL' %}text-danger
-					{% elif satus == 'WARNING' %}text-warning
+					{% if status == 'CRITICAL' %}text-danger
+					{% elif status == 'WARNING' %}text-warning
 					{% else %}text-success
 					{% endif %}
 				">Status: {{ status }}</p>
 			</div>
+			<div class="card-header">Service Status</div>
+			<div class="card-body">
+				{% for service, status in service_statuses.items() %}
+				<p class="{% if status == 'active' %}text-success{% else %}text-danger{% endif %}">
+					{{ service }}: {{ status }}
+				</p>
+				{% endfor %}
+			</div>
+			<div class="card-header">Network monitor</div>
+			<div class="card-body">
+				{% for host,status in network_statuses.items() %}
+				<p class="{% if status =='UP' %}text-success{% else %}text-danger{% endif %}"> 
+					{{ host }}: {{ status }}
+				</p>
+				{% endfor %}
+			</div>
+			<div class="card mt-3">
+				<div class="card-header">Node Metrics</div>
+				<div class="card-body">
+					{% for instance, metrics in node_metrics.items() %}
+					<h5>{{ instance }}</h5>
+					{% for metric, value in metrics.items() %}
+					<p>{{ metric }}: {{ value }}</p>
+					{% endfor %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
 		</div>
 	</div>
 </body>

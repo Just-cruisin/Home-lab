@@ -1,7 +1,7 @@
 import requests
 
 def query_prometheus(metric):
-    response = requests.get('http://testing.wjd:9090/api/v1/query', params={'query':metric})
+    response = requests.get('http://localhost:9090/api/v1/query', params={'query':metric})
     data = response.json()
     if data['status'] != 'success':
         print(f"Query failed: {data}")

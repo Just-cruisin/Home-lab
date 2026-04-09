@@ -14,7 +14,7 @@ def index():
     service_statuses = get_service_status(["ssh","cron","tailscaled"])
     disk_percentage,status = get_disk_usage()
     network_statuses = get_network_status()
-    node_metrics = get_node_metrics
+    node_metrics = get_node_metrics()
     return render_template('index.html', disk_percentage=disk_percentage, status=status,service_statuses=service_statuses,network_statuses=network_statuses,node_metrics=node_metrics)
 
 
