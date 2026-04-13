@@ -317,3 +317,54 @@ services:
 
 - **limits** — hard ceiling the container can never exceed
 - **reservations** — guaranteed minimum always available to the container
+
+## Environment Variables and Secrets
+
+Hardcoding credentials in a Compose file is a security risk — especially if the file ends up in a public repo.
+
+### Bad practice
+```yaml
+environment:
+  POSTGRES_PASSWORD: supersecret123
+```
+
+### Good practice — .env file
+Store secrets in a `.env` file in the same directory as `docker-compose.yml`:
+POSTGRES_PASSWORD=supersecret123
+
+Reference it in the Compose file:
+```yaml
+environment:
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+```
+
+Docker Compose automatically reads `.env` — no extra configuration needed.
+
+### Critical — add .env to .gitignore
+.env
+
+Verify it was passed correctly:
+```bash
+docker exec -it <container> env | grep POSTGRES
+```
+
+---
+
+## .dockerignore
+
+When you run `docker build`, Docker sends everything in the current directory to the daemon as the build context. Without a `.dockerignore`, large or sensitive files get included unnecessarily.
+
+### What to exclude
+
+.env .venv/ pycache/ *.pyc .git/ *.md
+### Why it matters
+- `.env` — credentials must never end up in an image
+- `.venv/` / `node_modules/` — can be hundreds of MB, bloats build context
+- `.git/` — entire Git history has no place in an image
+- `*.md` — documentation not needed at runtime
+
+### Verifying it works
+Watch the `transferring context` line in build output — a small number means only the necessary files were sent:
+=> transferring context: 27B
+
+Syntax is identical to `.gitignore`.
